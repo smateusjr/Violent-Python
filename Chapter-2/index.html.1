@@ -1,0 +1,412 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Ncat - Netcat for the 21st Century</TITLE>
+<META name="description" content="Ncat is a much-improved reimplementation of the venerable Netcat.  It is known as the swiss-army knife of networking.">
+
+<link REL="SHORTCUT ICON" HREF="/shared/images/tiny-eyeicon.png" TYPE="image/png">
+<META NAME="ROBOTS" CONTENT="NOARCHIVE">
+<link rel="stylesheet" href="/shared/css/insecdb.css" type="text/css">
+<!--Google Analytics Code-->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11009417-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!--END Google Analytics Code-->
+
+<!--Google Custom Site Search boilerplate Javascript-->
+<script type="text/javascript">
+  (function() {
+    var cx = 'partner-pub-0078565546631069:bx60rb-fytx';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<!--End Google Custom Site Search boilerplate Javascript-->
+
+</HEAD>
+<BODY BGCOLOR="#2A0D45" TEXT="#000000">
+
+<TABLE CELLPADDING="0" WIDTH="100%" CELLSPACING="0">
+<TR><TD ALIGN="left"><A HREF="/"><IMG BORDER=0 ALT="Home page logo"
+SRC="/images/sitelogo.png" HEIGHT=90 WIDTH=168></A></TD>
+<TD VALIGN="bottom" ALIGN="right">
+<!-- Begin TopBanner Code -->
+<!-- AdSpeed.com Serving Code 7.9.6 for [Zone] TopBanner [Any Dimension] -->
+<script type="text/javascript" src="//g.adspeed.net/ad.php?do=js&amp;zid=14678&amp;wd=-1&amp;ht=-1&amp;target=_blank"></script>
+<!-- AdSpeed.com End -->
+<!-- End Banner Code -->
+
+</TD></TR></TABLE>
+<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0"><TR>
+<TD ALIGN="left" WIDTH="130" VALIGN="top" class="sidebar">
+
+<!-- SECWIKI PORTAL INSERT -->
+
+<ul>
+<li><a href="//nmap.org/">Nmap Security Scanner</a>
+<ul>
+<li><a href="//nmap.org/">Intro</a></li>
+<li><a href="//nmap.org/book/man.html">Ref Guide</a></li>
+<li><a href="//nmap.org/book/install.html">Install Guide</a></li>
+<li><a href="https://nmap.org/download.html">Download</a></li>
+<li><a href="//nmap.org/changelog.html">Changelog</a></li>
+<li><a href="//nmap.org/book/">Book</a></li>
+<li><a href="//nmap.org/docs.html">Docs</a></li>
+</ul>
+<li><a href="http://seclists.org/">Security Lists</a>
+<ul>
+<li><a href="http://seclists.org/nmap-announce/">Nmap Announce</a></li>
+<li><a href="http://seclists.org/nmap-dev/">Nmap Dev</a></li>
+<li><a href="http://seclists.org/bugtraq/">Bugtraq</a></li>
+<li><a href="http://seclists.org/fulldisclosure/">Full Disclosure</a></li>
+<li><a href="http://seclists.org/pen-test/">Pen Test</a></li>
+<li><a href="http://seclists.org/basics/">Basics</a></li>
+<li><a href="http://seclists.org/">More</a></li>
+</ul>
+<li><a href="http://sectools.org">Security Tools</a>
+<ul>
+<li><a href="http://sectools.org/tag/pass-audit/">Password audit</a></li>
+<li><a href="http://sectools.org/tag/sniffers/">Sniffers</a></li>
+<li><a href="http://sectools.org/tag/vuln-scanners/">Vuln scanners</a></li>
+<li><a href="http://sectools.org/tag/web-scanners/">Web scanners</a></li>
+<li><a href="http://sectools.org/tag/wireless/">Wireless</a></li>
+<li><a href="http://sectools.org/tag/sploits/">Exploitation</a></li>
+<li><a href="http://sectools.org/tag/packet-crafters/">Packet crafters</a></li>
+<li><a href="http://sectools.org/">More</a></li>
+</ul>
+<li><a href="http://insecure.org/">Site News</a></li>
+<li><a href="http://insecure.org/advertising.html">Advertising</a></li>
+<li><a href="http://insecure.org/fyodor/">About/Contact</a></li>
+<li>
+<!-- SiteSearch Google -->
+<form action="https://nmap.org/search.html" id="cse-search-box-sidebar">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-0078565546631069:bx60rb-fytx">
+    <input type="hidden" name="cof" value="FORID:9">
+    <input type="hidden" name="ie" value="ISO-8859-1">
+    <input type="text" name="q" size="16">
+    <input type="submit" name="sa" value="Site Search">
+  </div>
+</form>
+<!-- End SiteSearch Google -->
+</li>
+<!-- These can come back if I ever update them ...
+<li><a href="http://insecure.org/links.html">Exceptional Links</a></li>
+<li><a href="http://insecure.org/reading.html">Good Reading</a></li>
+<li><a href="http://insecure.org/sploits.html">Exploit World</a></li>
+-->
+<li><a href="http://insecure.org/advertising.html">Sponsors:</a>
+
+<!-- Begin Sidebar Banner Code -->
+<A HREF="http://www.acunetix.com/free-network-vulnerability-scan/"><IMG SRC="/shared/images/Acunetix/Acunetix-Keys-120x90.gif" BORDER=0 ALT="Acunetix"></A>
+<!-- End Sidebar Banner Code -->
+</li>
+</ul>
+
+</TD>
+<TD BGCOLOR="#FFFFFF" VALIGN="top" ALIGN="left"><IMG
+SRC="/shared/images/topleftcurve.gif" alt="/"><TABLE CELLPADDING="4" WIDTH="100%" style="table-layout: fixed;"><TR><TD BGCOLOR="#FFFFFF">
+
+
+<CENTER>
+
+<TABLE CELLSPACING="5">
+<TR VALIGN="top"><TD VALIGN="top"><A HREF="/zenmap/images/zenmap-multi-1220x700.png"><IMG WIDTH=150 HEIGHT=150 SRC="/zenmap/images/zenmap-thumb-150x150.png" alt="Zenmap screenshot"></A></TD>
+<TD VALIGN="top" ALIGN="center">
+<!-- Begin Banner Code -->
+<!-- Modified random image selection code - original version at 
+     http://www.bravenet.com/reviews/archives/tips.php?view=8 -->
+
+<SCRIPT type="text/javascript"> 
+<!--
+var imagenumber = 11 ; 
+var randomnumber = Math.random() ; 
+var rand1 = Math.round( (imagenumber-1) * randomnumber) + 1 ; 
+images = new Array 
+images[1] = "images/nmap_bnr2.jpg" 
+images[2] = "images/nmap_bnr_euroboy.jpg" 
+images[3] = "images/nmap_bnr_ai.jpg" 
+images[4] = "images/nmap_bnr_kyra1.gif" 
+images[5] = "images/nmap_bnr_kyra2.gif" 
+images[6] = "images/nmap_bnr_kyra3.gif" 
+images[7] = "images/nmap_bnr_kyra4.gif" 
+images[8] = "images/nmap_bnr_kyra5.gif" 
+images[9] = "images/nmap_bnr_i_amgod3.jpg" 
+images[10] = "images/nmap_bnr_mouse.gif" 
+images[11] = "images/nmap_bnr_m4rc3l0-2.jpg" 
+
+var myimage = images[rand1] 
+var mylink = "/"
+document.write('<A HREF="' + mylink + '"><IMG src="/' + myimage + '" BORDER=0 alt="Nmap promo banner"><\/A>') 
+//  --> 
+</SCRIPT> 
+<NOSCRIPT>
+<A HREF="/"><IMG SRC="/images/nmap_bnr_euroboy.jpg" BORDER=0 HEIGHT=60 WIDTH=468 alt="Nmap promo banner"></A>
+</NOSCRIPT>
+<table class="pagemap" width=468>
+<tr>
+
+<td><A HREF="/">Intro</A></td>
+
+
+
+<td><A HREF="/book/man.html">Reference Guide</A></td>
+
+
+
+<td><A HREF="/book/">Book</A></td>
+
+
+
+<td><A HREF="/book/install.html">Install Guide</A></td>
+
+
+</tr><tr>
+
+<td><A HREF="/download.html">Download</A></td>
+
+
+
+
+<td><A HREF="/changelog.html">Changelog</A></td>
+
+
+
+
+<td><A HREF="/zenmap/">Zenmap GUI</A></td>
+
+
+
+<td><A HREF="/docs.html">Docs</A></td>
+
+
+</tr><tr>
+
+<td><A HREF="/book/man-bugs.html">Bug Reports</A></td>
+
+
+
+
+<td><A HREF="/book/osdetect.html">OS Detection</A></td>
+
+
+
+
+<td><A HREF="/nmap_propaganda.html">Propaganda</A></td>
+
+
+
+
+<td><A HREF="/projects.html">Related Projects</A></td>
+
+
+</tr><tr>
+
+
+<td colspan=2><A HREF="/movies/">In the Movies</A></td>
+
+
+
+
+
+<td colspan=2 align="right"><A HREF="/nmap_inthenews.html">In the News</A></td>
+
+
+
+</tr></table>
+
+
+</TD>
+<TD VALIGN="top"><A HREF="/images/nmap-401-demoscan-798x774.gif"><IMG WIDTH=150 HEIGHT=150 SRC="/images/nmap-401-demoscan-squarecrop-150x150.gif" alt="Example Nmap output"></A></TD>
+</TR></TABLE>
+</CENTER>
+<br>
+
+
+<A NAME="intro"></A>
+<h2 class="purpleheader">Introduction</h2>
+
+<BR>
+<center>
+<pre>
+  .       .       
+  \`-"'"-'/       
+   } 6 6 {        
+  ==. Y ,==       
+    /^^^\  .      
+   /     \  )     
+  (  )-(  )/     _
+  -""---""---   / 
+ /   Ncat    \_/  
+(     ____        
+ \_.=|____E       
+</pre>
+</center>
+
+<p>Ncat is a feature-packed networking utility which reads and
+writes data across networks from the command line. Ncat was written
+for the Nmap Project as a much-improved reimplementation of the
+venerable <a href="http://sectools.org/tool/netcat/">Netcat</a>.  It uses
+both TCP and UDP for communication and is designed to be a reliable
+back-end tool to instantly provide network connectivity to other
+applications and users. Ncat will not only work with IPv4 and IPv6 but
+provides the user with a virtually limitless number of potential uses.
+
+<p>Among Ncat’s vast number of features there is the ability to chain
+Ncats together, redirect both TCP and UDP ports to other sites, SSL
+support, and proxy connections via SOCKS4 or HTTP (CONNECT method)
+proxies (with optional proxy authentication as well). Some general
+principles apply to most applications and thus give you the capability
+of instantly adding networking support to software that would normally
+never support it.
+
+<p>Ncat is integrated with Nmap and is available in the standard Nmap
+download packages (including source code and Linux, Windows, and Mac
+binaries) available from
+the <a href="http://nmap.org/download.html">Nmap download page</a>.
+You can also find it in
+our <a href="http://nmap.org/book/install.html#inst-svn">SVN
+source code repository</a>.
+
+<p>Many users have asked for a statically compiled version of ncat.exe that they can just drop on a Windows system and use without having to run any installer or copy over extra library files.  We have built a statically compiled Windows binary version of Ncat 5.59BETA1.  You can download it inside a zip file <a href="http://nmap.org/dist/ncat-portable-5.59BETA1.zip">here</a>.  To ensure the file hasn't been tampered with, you can check the <a href="http://nmap.org/book/install.html#inst-integrity">cryptographic signatures</a>.  If you need a portable version of a newer Ncat release, see the <a href="https://secwiki.org/w/Nmap/Ncat_Portable">Ncat portable compilation instructions</a>.
+
+<p>The <a href="guide/index.html">Ncat Users' Guide</a> contains full
+documentation including many tips, tricks, and practical real-life examples!  There is also an <a href="/book/ncat-man.html">Ncat man page</a> for a quick usage summary.
+
+<h2 class="purpleheader">Nmap Site Navigation</h2>
+
+<CENTER>
+<table class="pagemap" width=468>
+<tr>
+
+<td><A HREF="/">Intro</A></td>
+
+
+
+<td><A HREF="/book/man.html">Reference Guide</A></td>
+
+
+
+<td><A HREF="/book/">Book</A></td>
+
+
+
+<td><A HREF="/book/install.html">Install Guide</A></td>
+
+
+</tr><tr>
+
+<td><A HREF="/download.html">Download</A></td>
+
+
+
+
+<td><A HREF="/changelog.html">Changelog</A></td>
+
+
+
+
+<td><A HREF="/zenmap/">Zenmap GUI</A></td>
+
+
+
+<td><A HREF="/docs.html">Docs</A></td>
+
+
+</tr><tr>
+
+<td><A HREF="/book/man-bugs.html">Bug Reports</A></td>
+
+
+
+
+<td><A HREF="/book/osdetect.html">OS Detection</A></td>
+
+
+
+
+<td><A HREF="/nmap_propaganda.html">Propaganda</A></td>
+
+
+
+
+<td><A HREF="/projects.html">Related Projects</A></td>
+
+
+</tr><tr>
+
+
+<td colspan=2><A HREF="/movies/">In the Movies</A></td>
+
+
+
+
+
+<td colspan=2 align="right"><A HREF="/nmap_inthenews.html">In the News</A></td>
+
+
+
+</tr></table>
+
+
+</CENTER>
+</TD></TR>
+</TABLE>
+</TD></TR>
+<TR><TD></TD><TD ALIGN="center">
+<FONT COLOR="#FFFFFF">
+[ <A HREF="//nmap.org"><FONT COLOR="#FFFFFF">Nmap</FONT></A> |
+  <A HREF="http://sectools.org"><FONT COLOR="#FFFFFF">Sec Tools</FONT></A> |
+  <A HREF="http://seclists.org/"><FONT COLOR="#FFFFFF">Mailing Lists</FONT></A> |
+  <A HREF="http://insecure.org/"><FONT COLOR="#FFFFFF">Site News</FONT></A> |
+  <A HREF="http://insecure.org/fyodor/"><FONT COLOR="#FFFFFF">About/Contact</FONT></A> |
+  <A HREF="http://insecure.org/advertising.html"><FONT COLOR="#FFFFFF">Advertising</FONT></A> |
+  <A HREF="http://insecure.org/privacy.html"><FONT COLOR="#FFFFFF">Privacy</FONT></A> ]<BR>
+</FONT>
+
+<!-- SiteSearch Google -->
+<div class="gcse-searchbox-only" data-resultsUrl="https://nmap.org/search.html"></div>
+<!-- End SiteSearch Google -->
+
+<!-- Bottom Banner -->
+<!-- Modified random image selection code - original version at
+     http://www.bravenet.com/reviews/archives/tips.php?view=8 -->
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+<!--
+var imagenumber = 3;
+var randomnumber = Math.random() ;
+var rand1 = Math.round( (imagenumber-1) * randomnumber) + 1 ;
+images = new Array
+images[1] = "/shared/images/netsparker/scan4xsql.gif"
+images[2] = "/shared/images/netsparker/hack_website_first.jpg"
+images[3] = "/shared/images/netsparker/detect_vulnerabilities.gif"
+
+links = new Array
+links[1] = "https://www.netsparker.com/netsparker-web-application-security-scanner/website-vulnerable-xss-sql-injection-vulnerability-scanner/?utm_source=scan4xsql&utm_medium=banner&utm_campaign=insecureorg"
+links[2] = "https://www.netsparker.com/netsparker-web-application-security-scanner/hack-your-website-first/?utm_source=hackfirst&utm_medium=banner&utm_campaign=insecureorg"
+links[3] = "https://www.netsparker.com/netsparker-web-application-security-scanner/automatically-check-security-websites/?utm_source=hackfirst&utm_medium=banner&utm_campaign=insecureorg"
+
+var myimage = images[rand1]
+var mylink = links[rand1]
+document.write('<A HREF="' + mylink + '"><IMG src="' + myimage + '" BORDER=0 ALT="Netsparker" WIDTH=728 HEIGHT=90><\/A>')
+//  -->
+</SCRIPT>
+<NOSCRIPT>
+<a href="https://www.netsparker.com/netsparker-web-application-security-scanner/website-vulnerable-xss-sql-injection-vulnerability-scanner/?utm_source=scan4xsql&amp;utm_medium=banner&amp;utm_campaign=insecureorg"><img width=728 height=90 border=0 src="/shared/images/netsparker/scan4xsql.gif" alt="Netsparker"></a>
+</NOSCRIPT>
+<!-- End Bottom Banner -->
+</TD></TR>
+</TABLE>
+</BODY>
+</HTML>
+
+
