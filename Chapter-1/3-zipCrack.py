@@ -22,7 +22,7 @@ def main():
     """ Funcao principal """
 
     # Informa ao usuario como deve ser chamado o script
-    parser = optparse.OptionParser('usage %prog ' + '-f <zipfile> -d <dictionary>')
+    parser = optparse.OptionParser('usage %prog -f <zipfile> -d <dictionary>')
 
     # faz com que o -f seja o parametro para especificar o nome do arquivo zip
     parser.add_option('-f', dest='zname', type='string', help='specify zip file')
