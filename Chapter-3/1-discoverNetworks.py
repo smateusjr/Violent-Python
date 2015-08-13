@@ -102,7 +102,7 @@ def printNets(username, password):
 
 
 def main():
-    """Funcao principal """
+    """ Funcao principal """
 
     # Parse explicando como deve ser a chamada do script
     parser = optparse.OptionParser('usage %prog -u <wigle username> -p <wigle password>')
@@ -121,6 +121,7 @@ def main():
         print(parser.usage)
         exit(0)
     else:
+        # Chama a funcao para pesquisar as redes no registro do windows
         printNets(username, password)
 
 # Chama a funcao main principal

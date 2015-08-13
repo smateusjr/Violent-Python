@@ -52,7 +52,7 @@ def findRecycled(recycleDir):
 
 
 def main():
-    """Funcao principal """
+    """ Funcao principal """
 
     # Chama a funcao que encontra o diretorio da lixeira
     recycledDir = returnDir()

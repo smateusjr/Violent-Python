@@ -23,7 +23,7 @@ def printMeta(fileName):
 
 
 def main():
-    """Funcao principal """
+    """ Funcao principal """
 
     # Separa os parametros solicitados
     parser = optparse.OptionParser('usage %prog -F <PDF file name>')
